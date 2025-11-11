@@ -365,3 +365,35 @@ body.click-to-speak-active #main-content a:hover {
     background-color: rgba(110, 191, 107, 0.2);
     border-radius: 5px;
 }
+
+/* Ajustes relacionados a responsividade do widget de acessibilidade do usuário */
+/* Aplica estas regras em telas menores (celulares e tablets) */
+@media (max-width: 991.98px) {
+
+    /* Faz o widget de botões ficar na horizontal e centralizado */
+    #accessibility-widget {
+        flex-direction: row;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px 0;
+        border-top: 1px solid #ddd;
+    }
+
+    /* Remove a largura fixa e centraliza o ícone */
+    #accessibility-widget .btn {
+        width: auto;
+        text-align: center;
+        margin-bottom: 0 !important;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    /* Esconde APENAS o texto dos botões */
+    #accessibility-widget .btn .widget-text-label {
+        display: none;
+    }
+}
