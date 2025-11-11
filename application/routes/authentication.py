@@ -38,7 +38,7 @@ def login_user():
         cursor = connection.cursor(cursor_factory=RealDictCursor)
 
         # Busca o usuário com CPF correspondente e que esteja ativo.
-        cursor.execute("SELECT * FROM usuario WHERE cpf = %s AND ativo = 1", (cpf,))
+        cursor.execute("SELECT * FROM usuario WHERE cpf = %s AND ativo = TRUE", (cpf,))
         user_data = cursor.fetchone()
 
         # Verifica se o usuário existe.

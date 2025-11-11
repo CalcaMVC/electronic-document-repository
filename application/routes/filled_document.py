@@ -50,7 +50,7 @@ def list_filled_documents():
             INNER JOIN modelo_documento AS m ON m.id_modelo_documento = d.id_documento_modelo
             INNER JOIN categoria_documento AS c ON c.id_categoria = m.id_categoria
             INNER JOIN usuario AS u ON u.id_usuario = d.id_usuario
-            WHERE d.ativo = 1
+            WHERE d.ativo = TRUE
             ORDER BY d.data_envio DESC
         """)
 
@@ -65,7 +65,7 @@ def list_filled_documents():
             INNER JOIN modelo_documento AS m ON m.id_modelo_documento = d.id_documento_modelo
             INNER JOIN categoria_documento AS c ON c.id_categoria = m.id_categoria
             INNER JOIN usuario AS u ON u.id_usuario = d.id_usuario
-            WHERE d.ativo = 1 AND d.id_usuario = %s
+            WHERE d.ativo = TRUE AND d.id_usuario = %s
             ORDER BY d.data_envio DESC
         """, (user_id,))
 
@@ -98,7 +98,7 @@ def send_filled_document():
     cursor.execute("""
         SELECT id_categoria, nome_categoria
         FROM categoria_documento
-        WHERE ativo = 1
+        WHERE ativo = TRUE
         ORDER BY nome_categoria ASC
     """)
     categories = cursor.fetchall()
@@ -181,7 +181,7 @@ def get_models_by_category(category_id):
         cursor.execute("""
             SELECT id_modelo_documento, titulo
             FROM modelo_documento
-            WHERE ativo = 1 AND id_categoria = %s
+            WHERE ativo = TRUE AND id_categoria = %s
             ORDER BY titulo ASC
         """, (category_id,))
 
@@ -222,7 +222,7 @@ def download_filled_document(filled_id):
         SELECT m.titulo, d.arquivo
         FROM documento_preenchido AS d
         INNER JOIN modelo_documento AS m ON m.id_modelo_documento = d.id_documento_modelo
-        WHERE d.id_documento_preenchido = %s AND d.ativo = 1
+        WHERE d.id_documento_preenchido = %s AND d.ativo = TRUE
     """, (filled_id,))
     document = cursor.fetchone()
 
@@ -263,7 +263,7 @@ def delete_filled_document(filled_id):
     try:
 
         # Realiza a exclusão lógica.
-        cursor.execute("UPDATE documento_preenchido SET ativo = 0 WHERE id_documento_preenchido = %s", (filled_id,))
+        cursor.execute("UPDATE documento_preenchido SET ativo = FALSE WHERE id_documento_preenchido = %s", (filled_id,))
         connection.commit()
 
         # Retorna uma mensagem de sucesso.

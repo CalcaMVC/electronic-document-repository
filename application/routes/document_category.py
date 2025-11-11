@@ -43,7 +43,7 @@ def list_categories():
         SELECT c.id_categoria, c.nome_categoria, c.data_criacao, u.nome AS criado_por
         FROM categoria_documento AS c
         INNER JOIN usuario AS u ON u.id_usuario = c.id_usuario
-        WHERE c.ativo = 1
+        WHERE c.ativo = TRUE
         ORDER BY c.data_criacao DESC
     """)
     categories = cursor.fetchall()
@@ -167,7 +167,7 @@ def edit_category(category_id):
             connection.close()
 
     # Busca os dados da categoria no banco de dados.
-    cursor.execute("SELECT * FROM categoria_documento WHERE id_categoria = %s AND ativo = 1", (category_id,))
+    cursor.execute("SELECT * FROM categoria_documento WHERE id_categoria = %s AND ativo = TRUE", (category_id,))
     category = cursor.fetchone()
 
     # Encerra a conexão com o banco de dados.
@@ -209,7 +209,7 @@ def delete_category(category_id):
     try:
 
         # Atualiza o campo do banco de dados para desativar a categoria.
-        cursor.execute("UPDATE categoria_documento SET ativo = 0 WHERE id_categoria = %s", (category_id,))
+        cursor.execute("UPDATE categoria_documento SET ativo = FALSE WHERE id_categoria = %s", (category_id,))
         connection.commit()
         flash("Categoria de documento excluída com sucesso!!!", "success")
 

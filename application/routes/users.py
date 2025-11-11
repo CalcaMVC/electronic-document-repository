@@ -35,7 +35,7 @@ def list_users():
     cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     # Consulta todos os usuários ativos.
-    cursor.execute("SELECT id_usuario, nome, cpf, perfil FROM usuario WHERE ativo = 1")
+    cursor.execute("SELECT id_usuario, nome, cpf, perfil FROM usuario WHERE ativo = TRUE;")
     users = cursor.fetchall()
 
     # Encerra a conexão.
@@ -92,7 +92,7 @@ def register_user():
             # Insere o novo usuário no banco de dados.
             cursor.execute("""
                 INSERT INTO usuario (nome, cpf, senha, perfil, ativo)
-                VALUES (%s, %s, %s, %s, 1)
+                VALUES (%s, %s, %s, %s, TRUE)
             """, (name, cpf, hashed_password, role))
 
             # Confirma o sucesso da operação.
@@ -173,7 +173,7 @@ def edit_user(user_id):
             connection.close()
 
     # Busca os dados do usuário para exibir no formulário.
-    cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s AND ativo = 1", (user_id,))
+    cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s AND ativo = TRUE", (user_id,))
     user = cursor.fetchone()
 
     # Encerra a conxão com o banco de dados.
@@ -217,7 +217,7 @@ def edit_user_profile():
 
         try:
             # Verifica se o usuário existe e está ativo.
-            cursor.execute("SELECT senha FROM usuario WHERE id_usuario = %s AND ativo = 1", (session['user_id'],))
+            cursor.execute("SELECT senha FROM usuario WHERE id_usuario = %s AND ativo = TRUE", (session['user_id'],))
             user_data = cursor.fetchone()
 
             # Se não encontrar o usuário, desfaz a operação.
@@ -297,7 +297,7 @@ def edit_user_profile():
             connection.close()
 
     # Busca as informações atuais do usuário para preencher o formulário.
-    cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s AND ativo = 1", (session['user_id'],))
+    cursor.execute("SELECT * FROM usuario WHERE id_usuario = %s AND ativo = TRUE", (session['user_id'],))
     user = cursor.fetchone()
 
     # Fecha a conexão com o banco de dados.
@@ -397,7 +397,7 @@ def delete_user(user_id):
     try:
 
         # Atualiza o campo do banco de dados para desativar o usuário.
-        cursor.execute("UPDATE usuario SET ativo = 0 WHERE id_usuario = %s", (user_id,))
+        cursor.execute("UPDATE usuario SET ativo = FALSE WHERE id_usuario = %s", (user_id,))
         connection.commit()
         flash("Usuário excluído com sucesso!!!", "success")
 

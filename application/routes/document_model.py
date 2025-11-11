@@ -42,7 +42,7 @@ def list_models():
         FROM modelo_documento AS m
         INNER JOIN categoria_documento AS c ON c.id_categoria = m.id_categoria
         INNER JOIN usuario AS u ON u.id_usuario = m.id_usuario
-        WHERE m.ativo = 1
+        WHERE m.ativo = TRUE
         ORDER BY m.data_envio DESC
     """)
     models = cursor.fetchall()
@@ -77,7 +77,7 @@ def register_model():
     cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     # Busca categorias de documentos ativas.
-    cursor.execute("SELECT id_categoria, nome_categoria FROM categoria_documento WHERE ativo = 1 ORDER BY nome_categoria ASC")
+    cursor.execute("SELECT id_categoria, nome_categoria FROM categoria_documento WHERE ativo = TRUE ORDER BY nome_categoria ASC")
     categories = cursor.fetchall()
 
     # Processa o envio do formulário.
@@ -155,7 +155,7 @@ def edit_model(model_id):
     cursor = connection.cursor(cursor_factory=RealDictCursor)
 
     # Busca os dados atuais do modelo.
-    cursor.execute("SELECT * FROM modelo_documento WHERE id_modelo_documento = %s AND ativo = 1", (model_id,))
+    cursor.execute("SELECT * FROM modelo_documento WHERE id_modelo_documento = %s AND ativo = TRUE", (model_id,))
     model = cursor.fetchone()
 
     # Verifica se o modelo existe.
@@ -172,7 +172,7 @@ def edit_model(model_id):
         return redirect(url_for('document_model.list_models'))
 
     # Busca as categorias disponíveis para edição.
-    cursor.execute("SELECT id_categoria, nome_categoria FROM categoria_documento WHERE ativo = 1 ORDER BY nome_categoria ASC")
+    cursor.execute("SELECT id_categoria, nome_categoria FROM categoria_documento WHERE ativo = TRUE ORDER BY nome_categoria ASC")
     categories = cursor.fetchall()
 
     # Processa os dados enviados via formulário.
@@ -250,7 +250,7 @@ def download_model(model_id):
     cursor.execute("""
         SELECT titulo, arquivo
         FROM modelo_documento
-        WHERE id_modelo_documento = %s AND ativo = 1
+        WHERE id_modelo_documento = %s AND ativo = TRUE
     """, (model_id,))
     model = cursor.fetchone()
 
@@ -298,7 +298,7 @@ def delete_model(model_id):
     try:
 
         # Atualiza o modelo para inativo (exclusão lógica).
-        cursor.execute("UPDATE modelo_documento SET ativo = 0 WHERE id_modelo_documento = %s", (model_id,))
+        cursor.execute("UPDATE modelo_documento SET ativo = FALSE WHERE id_modelo_documento = %s", (model_id,))
 
         # Confirma a operação.
         connection.commit()
