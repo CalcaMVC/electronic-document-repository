@@ -1,0 +1,30 @@
+<div id="accessibility-widget" class="shadow-lg">
+    
+    <!-- Botão de Zoom + -->
+    <button id="increase-font" class="btn btn-light mb-2" aria-label="Aumentar fonte">
+        <i class="bi bi-zoom-in"></i> A+
+    </button>
+
+    <!-- Botão de Zoom - -->
+    <button id="decrease-font" class="btn btn-light mb-2" aria-label="Diminuir fonte">
+        <i class="bi bi-zoom-out"></i> A-
+    </button>
+
+    <!-- Botão para mudar o contraste -->
+    <button id="toggle-contrast" class="btn btn-light mb-2" aria-label="Alternar alto contraste">
+        <i class="bi bi-circle-half"></i> Contraste
+    </button>
+
+    <!-- Botão para ativar a máscara de leitura -->
+    <button id="toggle-reading-mask" class="btn btn-light mb-2" aria-label="Ativar máscara de leitura">
+        <i class="bi bi-eyeglasses"></i> Leitura
+    </button>
+
+    <!-- Botão para ativar o text to speech -->
+    <button id="speak-text-btn" class="btn btn-light" aria-label="Ler texto selecionado">
+        <i class="bi bi-volume-up-fill"></i> <span class="speak-text-label">Ouvir</span>
+    </button>
+</div>
+
+<!-- Importação do Java Script que implementa os recursos de acessibilidade-->
+<script src="{{ url_for('static', filename='javascript/accessibility.js') }}"></script>

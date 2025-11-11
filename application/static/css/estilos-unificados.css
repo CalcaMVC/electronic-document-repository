@@ -217,3 +217,151 @@
     background-color: #2C3A40 !important;
     color: white !important;
 }
+
+/* ACESSIBILIDADE */
+/* Estilos do Widget de Acessibilidade */
+#accessibility-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    /* Z-index alto para ficar sobre outros elementos de HTML */
+    z-index: 1050; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* Define uma largura fixa para os botões */
+#accessibility-widget .btn {
+    width: 140px;
+    text-align: left;
+}
+
+/* Adiciona uma transição suave para as mudanças de cor e fundo */
+body, .card, .bg-sidebar, .btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Tema de alto contraste */
+body.high-contrast {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+body.high-contrast .bg-white,
+body.high-contrast .card {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+body.high-contrast .text-dark,
+body.high-contrast .text-secondary,
+body.high-contrast p {
+    color: #fff !important;
+}
+
+body.high-contrast .text-primary,
+body.high-contrast h2,
+body.high-contrast h5 {
+
+    /* Amarelo para destaque */
+    color: #FFFF00 !important;
+}
+
+body.high-contrast .bg-sidebar,
+body.high-contrast .bg-topbar {
+    background-color: #000 !important;
+    border-right: 1px solid #fff;
+}
+
+body.high-contrast .btn-sidebar {
+    background-color: #000 !important;
+    color: #FFFF00 !important;
+    border: 1px solid #FFFF00 !important;
+}
+
+body.high-contrast .btn-sidebar:hover {
+    background-color: #FFFF00 !important;
+    color: #000 !important;
+}
+
+body.high-contrast a {
+
+    /* Ciano para links */
+    color: #00FFFF !important;
+}
+
+/* Estilo para foco fisível --- */
+/* Garante que elementos de HTML interativos tenham um contorno claro quando selecionados pelo teclado */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+[tabindex]:not([tabindex="-1"]):focus {
+
+    /* Cor verde do tema para consistência */
+    outline: 5px solid red !important;
+    outline-offset: 2px;
+}
+
+/* Estilo para a máscara de leitura */
+#reading-mask {
+    position: fixed;
+    width: 100%;
+    height: 35px;
+    background-color: rgba(110, 191, 107, 0.3);
+    border-top: 1px solid rgba(110, 191, 107, 0.6);
+    border-bottom: 1px solid rgba(110, 191, 107, 0.6);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+#reading-mask.hidden {
+    opacity: 0;
+}
+
+/* Estilo para o botão de leitura (Text to Speech) ativo --- */
+#speak-text-btn.active {
+    background-color: #6EBF6B !important;
+    color: white !important;
+}
+
+/* Estilo para o modo de leitura por clique */
+/* Estilo do botão do widget quando o modo está ativo */
+#toggle-click-mode-btn.active {
+    background-color: #3C8C3A !important;
+    color: white !important;
+}
+
+/* Quando o modo de leitura por clique estiver ativo, muda o cursor e adiciona uma transição suave nos elementos de texto */
+body.click-to-speak-active #main-content h1,
+body.click-to-speak-active #main-content h2,
+body.click-to-speak-active #main-content h3,
+body.click-to-speak-active #main-content h4,
+body.click-to-speak-active #main-content h5,
+body.click-to-speak-active #main-content h6,
+body.click-to-speak-active #main-content p,
+body.click-to-speak-active #main-content li,
+body.click-to-speak-active #main-content a {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Efeito de destaque ao passar o mouse por cima de um texto clicável */
+body.click-to-speak-active #main-content h1:hover,
+body.click-to-speak-active #main-content h2:hover,
+body.click-to-speak-active #main-content h3:hover,
+body.click-to-speak-active #main-content h4:hover,
+body.click-to-speak-active #main-content h5:hover,
+body.click-to-speak-active #main-content h6:hover,
+body.click-to-speak-active #main-content p:hover,
+body.click-to-speak-active #main-content li:hover,
+body.click-to-speak-active #main-content a:hover {
+    background-color: rgba(110, 191, 107, 0.2);
+    border-radius: 5px;
+}
